@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'doc_calender/widget_calender.dart';
 
 void main() {
@@ -26,7 +25,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: DocAppointmentCalenderView(),
+      home:
+      // AddEvent2(),
+      DocAppointmentCalenderView(),
     );
   }
 }
