@@ -19,9 +19,6 @@ class DocAppointmentCalenderView extends StatefulWidget {
   State<DocAppointmentCalenderView> createState() => _DocAppointmentCalenderViewState();
 }
 
-///adding data form api to calender with obx
-///https://stackoverflow.com/questions/67866071/how-to-show-event-on-table-calendar-using-my-api-on-flutter
-
 class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView> {
 
   ///CONTROLLER DATA
@@ -30,7 +27,7 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
 
   final ValueNotifier<List<Event>> _selectedEvents = ValueNotifier([]);
 
-  // Using a `LinkedHashSet` is recommended due to equality comparison override
+  /// Using a `LinkedHashSet` is recommended due to equality comparison override
   final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
     equals: isSameDay,
     hashCode: getHashCode,
@@ -41,7 +38,6 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
   List<DateTime> _finalStoredDates = [DateTime(2022,11,29),DateTime(2022,11,30),];
   List<String> _finalDateStLs=[];
 
-  CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
 
   @override
@@ -57,11 +53,12 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
     super.dispose();
   }
 
-  List<Event> _getEventsForDay(DateTime day) {
+/*  List<Event> _getEventsForDay(DateTime day) {
     // Implementation example
     return kEvents[day] ?? [];
-  }
+  }*/
 
+/*
   List<Event> _getEventsForDays(Set<DateTime> days) {
     // Implementation example
     // Note that days are in selection order (same applies to events)
@@ -69,6 +66,7 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
       for (final d in days) ..._getEventsForDay(d),
     ];
   }
+*/
 
   ///custom _onDaySelected
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -82,7 +80,7 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
         _selectedDays.add(selectedDay);
       }
     });
-    _selectedEvents.value = _getEventsForDays(_selectedDays);
+    // _selectedEvents.value = _getEventsForDays(_selectedDays);
 
     // for (DateTime d in appointmentController.d) {
     //   if (selected_Day.day == d.day && selected_Day.month == d.month && selected_Day.year == d.year) {
@@ -142,7 +140,7 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
                   focusedDay: DateTime.now(),
                   firstDay: kFirstDay,
                   lastDay: kLastDay,
-                  calendarFormat: _calendarFormat,
+                  calendarFormat: CalendarFormat.month,
                   startingDayOfWeek: StartingDayOfWeek.saturday,
                   daysOfWeekHeight: 50,
                   daysOfWeekStyle: DaysOfWeekStyle(
@@ -255,7 +253,7 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
               onPressed: () {
                 isIgnored = false;
                 _finalDates.clear();
-                _finalStoredDates.clear();
+                // _finalStoredDates.clear();
                 setState(() {
                   // _selectedDays.clear();
                   // _selectedEvents.value = [];
@@ -271,6 +269,7 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
                   _finalDates.addAll(_selectedDays);
                   _finalStoredDates.addAll(_finalDates);
                   GetStorage().write("finalDateStored", _finalStoredDates);
+
                   for(int i=0;i<_finalDates.length;i++){
                     final DateTime now = DateTime(_finalDates[i].year,_finalDates[i].month,_finalDates[i].day);
                     final DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -278,6 +277,7 @@ class _DocAppointmentCalenderViewState extends State<DocAppointmentCalenderView>
                     print(formatted); // something like 2013-04-20
                     _finalDateStLs.add(formatted);
                   }
+
                   setState(() {
                     // _selectedDays.clear();
                     // _selectedEvents.value = [];
