@@ -1,4 +1,3 @@
-/*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -262,4 +261,4 @@ class AddEventState2 extends State<AddEvent2> {
       ),
     );
   }
-}*/
+}
